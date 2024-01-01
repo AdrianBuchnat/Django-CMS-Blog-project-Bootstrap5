@@ -1,0 +1,59 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container text-bg-light p-3">
+    <div class='row'>
+
+
+        <header>
+          <div class="card mb-3 border border-success" style="min-height: 52em;">
+            <img src="{{ MEDIA_URL }}{{ blog.blog_img }}" class="img-fluid rounded border-bottom border-success" alt="{{blog.blog_img}}">
+                <div class="card-body">
+                  <h3 class="card-title text-center text-success">{{blog.name}}</h3>
+                  <p class="card-text"> {{blog.descroption}} </p>
+                  <p class="card-text"><small class="text-body-success"> {{blog.author_name}} </small></p>
+                </div>
+          </div>
+        </header>
+        <section class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+          <article class="col ">
+            <a href="{% url "add_article" user %}" class="link-underline link-underline-opacity-0 text-light">
+            <div class="card h-100 text-bg-success" style="min-height: 30em;">
+              <img src="{% static "jk-placeholder-image.jpg" %}" class="card-img-top" alt="Default image" style='height: 17em;'>
+              <div class="card-body">
+                <h5 class="card-title"> Dodaj nowy artykuł </h5>
+                <div class="card-text mb-5"> ... </div>
+              </div>
+              <div class="card-footer mt-auto">
+                <small class="text-light"></small>
+              </div>
+            </div>
+          </a>
+          </article>
+
+          {% for article in articles %}
+            <article class="col ">
+              <a href="{% url "article" article.article_name %}" class="link-underline link-underline-opacity-0 text-light">
+              <div class="card h-100 text-bg-success" style="min-height: 30em;">
+                <img src="{{ MEDIA_URL }}{{ article.image_first }}" class="card-img-top" alt={{article.image_first}} style='height: 17em;'>
+                <div class="card-body">
+                  <h5 class="card-title">{{ article.article_name }}</h5>
+                  <div class="card-text mb-5">{{ article.content|safe|slice:":254" }}... </div><small class='text-end d-block'>(Czytraj dalej)</small>
+                </div>
+                <div class="card-footer mt-auto">
+                  <small class="text-light">{{ article.data }}</small>
+                  <a href="{% url "edit_article" article.pk %}" class="text-white float-end">  (edytuj) </a> 
+                  <a href="{% url "delete_article" article.pk %}" class=" text-warning float-end me-3">  (usuń) </a>
+                </div>
+              </div>
+            </a>
+            </article>
+          {% endfor %}
+          </section>
+  
+     </div>
+</main>
+
+{% endblock content %}

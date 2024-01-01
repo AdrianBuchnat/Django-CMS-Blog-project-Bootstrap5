@@ -1,0 +1,21 @@
+
+{% block articles_tags %}
+{% for article in articles %}
+<article class="col-md-6 col-lg-4 g-4">
+  <a href="{% url "article" article.article_name %}" class="link-underline link-underline-opacity-0">
+  <div class="card h-100 text-bg-success" style="min-height: 30em;">
+    <img src="{% static article.image_first %}" class="card-img-top" alt={{article.image_first}} style='height: 17em;'>
+    <div class="card-body">
+      <h5 class="card-title">{{ article.article_name }}</h5>
+      <div class="card-text mb-5">{{ article.content|safe }}... </div><small class='text-end d-block'>(Czytraj dalej)</small>
+    </div>
+    <div class="card-footer">
+      <small class="text-light">{{ article.data }}</small>
+    </div>
+  </div>
+</a>
+</article>
+{% endfor %}
+{% endblock articles_tags %}
+
+

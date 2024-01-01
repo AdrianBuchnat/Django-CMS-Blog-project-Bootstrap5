@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container text-bg-light p-3">
+    <h1 class="h2 mb-3 font-weight-normal text-center"> Dodaj nowy artykuł </h1>
+    {% load crispy_forms_tags %}
+    <form method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.media }}
+        {{ form|crispy }}
+
+        <button class="btn btn-success btn-lg w-100 mt-4" type="submit">Stwórz</button>
+    </form>
+</main>
+
+{% endblock content %}

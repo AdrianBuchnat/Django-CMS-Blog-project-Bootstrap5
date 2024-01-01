@@ -1,0 +1,109 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+    <div class="row">
+
+        <!-- Artykuł -->
+        <main class="container text-bg-light p-0 border border-success">
+
+            <img src="{{ MEDIA_URL }}{{article.image_first}}" alt="{{ article.image_first}}" class="img-fluid mx-auto d-block w-100 border border-success">
+
+            <header>
+                <h1 class="text-center mt-3"> {{article.article_name}} </h1>
+            </header>
+
+            <article class="p-4 text-justify">
+                {{ article.content|safe }}
+            </article>
+
+            <section>
+              <a href=" {% url 'blog' blog.id %} " class="link-underline link-underline-opacity-0">
+                <div class="row mx-auto text-bg-success py-3">
+
+                    <div class="col-5 col-sm-4 col-md-3"><img src="{{ MEDIA_URL }}{{ blog.blog_img }}" class="img-fluid rounded" alt="Zdjęcie autora" style="min-height: 5em; min-width: 5em;"></div>                   
+                    <div class="col-7 col-sm-8 col-md-9">
+                      <header><h3 class="h4">{{ blog.name }}</h3></header>
+                      <h5>Autor: {{ blog.author_name }} </h5>
+                      <p>{{ blog.descroption }}</p>
+                    </div>
+
+                </div>
+              </a>
+            </section>
+        {% comment %} komentarze {% endcomment %}
+        <section>
+            <div class="row d-flex justify-content-center py-3">
+              <div>
+                <div class="px-4">
+                  <h4 class="text-center mb-3 pb-2">Sekcja komentarzy</h4>
+
+                  <form method="POST" class="my-4 text-end">
+                    {% csrf_token %}
+                    <textarea class="form-control" rows="2" id='content' name='content' {% if user.is_anonymous %} placeholder="Dodawanie komentarzy jest możliwe tylko dla zalogowanych użytkowników." disabled {% else %} placeholder="Podziel się tym co myślisz." {% endif %} ></textarea>
+                    <input type="submit" class="btn btn-success my-2" value="Dodaj komentarz" {% if user.is_anonymous %} disabled {% endif %} >
+                  </form>
+
+                  {% for coment in coments  %}
+                    {% if coment.replie_comment is None %}
+                      <div class="row">
+                        <div class="col">
+                          <div class="d-flex flex-start my-3">
+                            <img class="rounded me-3 border border-success"
+                              src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(13).webp" alt="avatar" width="65"
+                              height="65" />
+                            <div class="flex-grow-1 flex-shrink-1">
+                              <div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <p class="mb-1">
+                                    {{ coment.user_id }} <span class="small">- {{ coment.date }}</span>
+                                  </p>
+                                  <a href="#!"><span class="small"> reply</span></a>
+                                </div>
+                                <p class="small mb-0">
+                                  {{ coment.content }}
+                                </p>
+                              </div>
+                    {% endif %}
+                    {% for coment_r in coments %}
+                      {% if coment_r.replie_comment == coment %}
+          
+                                <div class="d-flex mt-4">
+                                  <a class="me-3" href="#">
+                                    <img class="rounded border border-success"
+                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(11).webp" alt="avatar"
+                                      width="65" height="65" />
+                                  </a>
+                                  <div class="flex-grow-1">
+                                    <div>
+                                      <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-1">
+                                          {{ coment_r.user_id }} <span class="small">- {{coment_r.date}} </span>
+                                        </p>
+                                      </div>
+                                      <p class="small mb-0">
+                                        {{ coment_r.content }}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                {% endif %}
+                              {% endfor %}
+                              </div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+        </section>
+        {% comment %} komentarze {% endcomment %}
+
+        </main>
+
+        <!-- koniec artykułu -->
+    </div>
+</div>
+{% endblock content %}

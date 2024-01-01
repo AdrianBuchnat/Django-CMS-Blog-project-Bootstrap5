@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+  <main class="container mt-5">
+    <div class='row'>
+
+      <header class='col-12'>
+        <div class="card mb-3 border border-success" style="min-height: 52em;">
+          <img src="{{ MEDIA_URL }}{{ blog.blog_img }}" class="img-fluid rounded border-bottom border-success" alt="{{blog.blog_img}}">
+              <div class="card-body">
+                <h3 class="card-title text-center text-success">{{blog.name}}</h3>
+                <p class="card-text"> {{blog.descroption}} </p>
+                <p class="card-text"><small class="text-body-success"> {{blog.author_name}} </small></p>
+              </div>
+        </div>
+      </header>
+      <section class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+      
+        {% for article in articles %}
+          <article class="col ">
+            <a href="{% url "article" article.article_name %}" class="link-underline link-underline-opacity-0 text-light">
+            <div class="card h-100 text-bg-success" style="min-height: 30em;">
+              <img src="{{ MEDIA_URL }}{{ article.image_first }}" class="card-img-top" alt={{article.image_first}} style='height: 17em;'>
+              <div class="card-body">
+                <h5 class="card-title">{{ article.article_name }}</h5>
+                <div class="card-text mb-5">{{ article.content|safe }}... </div><small class='text-end d-block'>(Czytraj dalej)</small>
+              </div>
+              <div class="card-footer mt-auto">
+                <small class="text-light">{{ article.data }}</small>
+                <a href="{% url "blog" blog.id %}" class="link-underline link-underline-opacity-0 text-light"><small class="float-end">  {{ article.blog_id }} </small></a>
+              </div>
+            </div>
+          </a>
+          </article>
+        {% endfor %}
+        </section>
+
+   </div>
+  </main>
+
+{% endblock content %}

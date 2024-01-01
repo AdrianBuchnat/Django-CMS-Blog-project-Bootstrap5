@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+
+<main class="container py-4 my-5">
+    <div class='row d-flex justify-content-center'>
+        <div class="col-sm-12 col-md-8 col-lg-5 text-bg-light p-4 border border-success">
+            <h1 class="h2 mb-3 font-weight-normal text-center">Register</h1>
+            <form method="POST" class="form-signin">
+                {% csrf_token %}
+                <div class="my-2">
+                    <label for="id_username" class="h5">Nazwa użytkownika:</label>
+                    <div class="helptext">Wymagana. 150 lub mniej znaków. Jedynie litery, cyfry i @/./+/-/_.</div>
+                    <input class="form-control my-2" type="text" name="username" maxlength="150" autofocus required id="id_username" placeholder="Nazwa użytkownika" class>
+                </div>
+                <div>
+                    <label for="id_email" class="h5">Email:</label>
+                    <input class="form-control my-2" disabled type="email" name="email" maxlength="320" required id="id_email" placeholder="Email">
+                </div>
+                <div class="my-2">
+                    <label for="id_password1" class="h5">Hasło:</label>
+                <div class="helptext"><ul>
+                        <li>Twoje hasło nie może być zbyt podobne do twoich innych danych osobistych.</li>
+                        <li>Twoje hasło musi zawierać co najmniej 8 znaków.</li><li>Twoje hasło nie może być powszechnie używanym hasłem.</li>
+                        <li>Twoje hasło nie może składać się tylko z cyfr.</li>
+                    </ul></div>
+                    <input class="form-control my-2" type="password" name="password1" autocomplete="new-password" required id="id_password1" placeholder="Hasło">
+                </div>
+                <div class="my-2">
+                        <label for="id_password2" class="h5">Potwierdzenie hasła:</label>
+                        <div class="helptext">Wprowadź to samo hasło ponownie, dla weryfikacji.</div>
+                        <input class="form-control my-2" type="password" name="password2" autocomplete="new-password" required id="id_password2" placeholder="Potwierdzenie hasła">
+                </div>                    
+                            <button class="btn btn-success btn-lg w-100" type="submit">Zarejestruj</button>
+                                {% if request.POST %}
+                                    <p class='text-danger'> Coś poszło nie tak podczas rejestracji. Upewnij się, że znaki w polu nazwa użytkownika są zgodne i czy hasła są jednakowe.  </p>
+                                {% endif %}
+                            <p class="text-center mt-4">Jeśli posiadasz konto, <a href=" {% url 'login' %} ">zaloguj</a> się.</p>
+                </form>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
