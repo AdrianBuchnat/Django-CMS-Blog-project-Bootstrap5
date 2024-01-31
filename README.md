@@ -33,6 +33,8 @@ Welcome to the Django-CMS-Blog-Project-Bootstrap5, a comprehensive Django-based 
 ### 5. Image Handling with Pillow
 
 -   Integration of Pillow for efficient image handling, allowing users to include images in their blog posts.
+
+## Preview
 ![](https://cdn.discordapp.com/attachments/1030174570738630787/1202314324753006662/gif-ezgif.com-video-to-gif-converter.gif?ex=65cd0178&is=65ba8c78&hm=c3d07bf486b8ca73df911ebf5fa0744cc34575a08dfe3350ffad3598083a5c06&)
 ![enter image description here](https://cdn.discordapp.com/attachments/1030174570738630787/1202005148298379274/image.png?ex=65cbe187&is=65b96c87&hm=91fa859e2ce2e1b269b1d04e33271389a7d56ab22ed5a3b8dcc2e4250e1f02c8&)
 
