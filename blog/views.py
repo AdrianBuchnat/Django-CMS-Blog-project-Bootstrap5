@@ -121,11 +121,12 @@ class ArticleView(View):
 
 class CreateBlogView(LoginRequiredMixin, View):
     def get(self, request, user):
-        blog = Blog.objects.get(user_id=request.user.id)
-        if blog:
-            return HttpResponseRedirect('/')
-        else:
+        try:
+            blog = Blog.objects.get(user_id=request.user.pk)
+        except ObjectDoesNotExist:
             return render(request, 'blog/create_blog.html')
+        else:
+            return HttpResponseRedirect('/')
     
     def post(self, request, user):
         name = request.POST.get('name')
